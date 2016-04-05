@@ -37,13 +37,13 @@ public class Grafo {
         }
         
         if ((matrizAdyacente[arista.getVerticeA().getId()-1][arista.getVerticeB().getId()-1] == 0) && (matrizAdyacente[arista.getVerticeB().getId()-1][arista.getVerticeA().getId()-1] == 0)){
-            matrizAdyacente[arista.getVerticeA().getId()-1][arista.getVerticeB().getId()-1]= arista.getPeso();
-            matrizAdyacente[arista.getVerticeB().getId()-1][arista.getVerticeA().getId()-1]= arista.getPeso();
+            matrizAdyacente[arista.getVerticeA().getId()-1][arista.getVerticeB().getId()-1]= 1;
+            matrizAdyacente[arista.getVerticeB().getId()-1][arista.getVerticeA().getId()-1]= 1;
             conjuntoAristas.add(arista);
         } else {
             System.out.println("ERROR : No se ha insertado la arista.");
             System.out.println("Ya existe una arista entre los vértices " + arista.getVerticeA()
-                + " y " + arista.getVerticeB() + " con peso " + arista.getPeso());
+                + " y " + arista.getVerticeB());
         }
     }
     
@@ -96,15 +96,24 @@ public class Grafo {
         Set<Integer> nodosVisitados = new TreeSet<>();
         Set<Integer> nodosAVisitar = new TreeSet<>();
         int count = 0;
-        for (int j = 0; j < matrizAdyacente[1].length; j++) {
-            if((j != 0) && (matrizAdyacente[0][j] != 0)){
-                nodosAVisitar.add(j);
-            } else {
-                count++;
+        for (int i = 0; i < matrizAdyacente.length; i++) {
+            for(int j = 0; j < matrizAdyacente[0].length; j++){
+                if(i == 0){
+                    if((j != 0) && (matrizAdyacente[i][j] != 0)){
+                        nodosAVisitar.add(j);
+                    } else {
+                        count++;
+                    } 
+                } else {
+                    if(matrizAdyacente[i][j] == 0 ){
+                        count++;
+                    }
+                }
             }
-        }
-        if(count == matrizAdyacente.length){
-            return false;
+            if(count == matrizAdyacente.length){
+                return false;
+            }
+            count = 0;
         }
         nodosVisitados.add(0);
         recursivoAuxiliar(nodosVisitados,nodosAVisitar);

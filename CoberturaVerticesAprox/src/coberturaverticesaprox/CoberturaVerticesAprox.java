@@ -2,11 +2,10 @@
 package coberturaverticesaprox;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class CoberturaVerticesAprox {
     private Grafo grafo;
@@ -20,9 +19,9 @@ public class CoberturaVerticesAprox {
                 + "realizar el algoritmo de Cobertura de Vértices.");
         } else {
             this.grafo = grafo;
-            this.vertices = new ArrayList<Vertice>();
-            this.aristasIncidentes = new TreeSet<Arista>();
-            this.aristas = new ArrayList<Arista>();
+            this.vertices = new ArrayList<>();
+            this.aristasIncidentes = new HashSet<>();
+            this.aristas = new ArrayList<>();
             List<Arista> aristasGrafo = grafo.getConjuntoAristas();
             Iterator<Arista> iter = aristasGrafo.iterator();
             while(iter.hasNext()){
@@ -36,7 +35,15 @@ public class CoberturaVerticesAprox {
             Arista aristaActual = seleccionarArista();
             Vertice u = aristaActual.getVerticeA();
             Vertice v = aristaActual.getVerticeB();
-            aristasIncidentes = obtenerIncidentes(u,v);
+            aristasIncidentes.clear();
+            obtenerIncidentes(u,v);
+            System.out.println("Tamaño de aristas incidentes " + aristasIncidentes.size());
+            System.out.println("Aristas incidentes:");
+            Iterator<Arista> iter = aristasIncidentes.iterator();
+            while(iter.hasNext()){
+                Arista next = iter.next();
+                System.out.println(next.getVerticeA().getId() + " , " + next.getVerticeB().getId());
+            }
             vertices.add(u);
             vertices.add(v);
             eliminarAristasInicidentes();
@@ -45,20 +52,19 @@ public class CoberturaVerticesAprox {
     }
 
     private Arista seleccionarArista() {
-        int posicion = (int) Math.floor(Math.random()*(aristas.size() + 1));
+        int posicion = (int) Math.floor(Math.random()*(aristas.size()));
+        System.out.println("Posicion " + posicion);
         return aristas.get(posicion);
     }
     
-    private Set<Arista> obtenerIncidentes(Vertice u, Vertice v) {
-        Set<Arista> incidentes = new TreeSet<>();
-        for (Arista incidente : incidentes) {
-            if((incidente.getVerticeA().getId() == u.getId()) || (incidente.getVerticeA().getId() == v.getId()) ||
-              (incidente.getVerticeB().getId() == u.getId()) || (incidente.getVerticeB().getId() == v.getId())){
-                
-                incidentes.add(incidente);
+    private void obtenerIncidentes(Vertice u, Vertice v) {
+        Set<Arista> incidentes = new HashSet<>();
+        for (Arista arista : aristas) {
+            if((arista.getVerticeA().getId() == u.getId()) || (arista.getVerticeA().getId() == v.getId()) ||
+              (arista.getVerticeB().getId() == u.getId()) || (arista.getVerticeB().getId() == v.getId())){              
+                aristasIncidentes.add(arista);
             }
         }
-        return incidentes;
     }
 
     private void eliminarAristasInicidentes() {
