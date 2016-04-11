@@ -37,13 +37,13 @@ public class CoberturaVerticesAprox {
             Vertice v = aristaActual.getVerticeB();
             aristasIncidentes.clear();
             obtenerIncidentes(u,v);
-            System.out.println("Tamaño de aristas incidentes " + aristasIncidentes.size());
+            /*System.out.println("Tamaño de aristas incidentes " + aristasIncidentes.size());
             System.out.println("Aristas incidentes:");
             Iterator<Arista> iter = aristasIncidentes.iterator();
             while(iter.hasNext()){
                 Arista next = iter.next();
                 System.out.println(next.getVerticeA().getId() + " , " + next.getVerticeB().getId());
-            }
+            }*/
             vertices.add(u);
             vertices.add(v);
             eliminarAristasInicidentes();
@@ -53,7 +53,7 @@ public class CoberturaVerticesAprox {
 
     private Arista seleccionarArista() {
         int posicion = (int) Math.floor(Math.random()*(aristas.size()));
-        System.out.println("Posicion " + posicion);
+        //System.out.println("Posicion " + posicion);
         return aristas.get(posicion);
     }
     

@@ -2,15 +2,13 @@
 package coberturaverticesaprox;
 
 
-import coberturaverticesaprox.Grafo;
-import coberturaverticesaprox.Arista;
 import java.util.Iterator;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("-------Inicio de pruebas-------");
+        System.out.println("\n############  Inicio de pruebas  ############");
         System.out.println("");
         System.out.println("---------------------------------------------");
         System.out.println("-1er CASO-");
@@ -38,18 +36,23 @@ public class Main {
         grafo1.insertaArista(new Arista(vertice5,vertice4));
         
         
-        System.out.println("");
-        System.out.println("Matriz Adyacente del grafo");
-        System.out.println("");
-        grafo1.printMatriz();
-        System.out.println("");
+        System.out.println("\nMatriz Adyacente del grafo\n");
+        printMatriz(grafo1,grafo1.getMatrizAdyacente());
+        
+        System.out.println("Conjunto de aristas del grafo");
+        printConjuntoAristas(grafo1.getConjuntoAristas());
+        
+        System.out.println("\nEl conjunto de vértices de la solución ÓPTIMA será: [2 5]");
         
         CoberturaVerticesAprox algoritmo = new CoberturaVerticesAprox(grafo1);
-        
         List<Vertice> solucion = algoritmo.ejecutar();
-        System.out.println("");
         printSolucion(solucion);
-        System.out.println("");
+        
+        System.out.println("Comprobación de que el tamaño de la solución está dentro del error: ");
+        testSolucionSize(solucion.size(),2);
+        
+        System.out.println("Comprobación de la validez de la solución: ");
+        testSolucion(solucion,grafo1);
         
         /* Para probar los dos casos en que se lanzan excepciones, habría
          * que comentar una de la secciones y dejar la otra sin comentar
@@ -67,8 +70,78 @@ public class Main {
         System.out.println("Grafo con número de nodos menor a 1");
         Grafo grafo3 = new Grafo(0);*/
         
+        System.out.println("---------------------------------------------\n");
+        
+        System.out.println("---------------------------------------------");
+        System.out.println("-2º CASO-");
         System.out.println("---------------------------------------------");
         
+        Grafo grafo2 = new Grafo(7);
+        
+        Vertice vertice6 = new Vertice(6);
+        Vertice vertice7 = new Vertice(7);
+        
+        grafo2.insertaVertice(vertice1);
+        grafo2.insertaVertice(vertice2);
+        grafo2.insertaVertice(vertice3);
+        grafo2.insertaVertice(vertice4);
+        grafo2.insertaVertice(vertice5);
+        grafo2.insertaVertice(vertice6);
+        grafo2.insertaVertice(vertice7);
+        
+        grafo2.insertaArista(new Arista(vertice6,vertice1));
+        grafo2.insertaArista(new Arista(vertice2,vertice6));
+        grafo2.insertaArista(new Arista(vertice6,vertice3));
+        grafo2.insertaArista(new Arista(vertice4,vertice6));
+        grafo2.insertaArista(new Arista(vertice6,vertice5));
+        grafo2.insertaArista(new Arista(vertice7,vertice6));
+        
+        
+        System.out.println("\nMatriz Adyacente del grafo\n");
+        printMatriz(grafo2,grafo2.getMatrizAdyacente());
+        
+        System.out.println("Conjunto de aristas del grafo");
+        printConjuntoAristas(grafo2.getConjuntoAristas());
+        
+        System.out.println("\nEl conjunto de vértices de la solución ÓPTIMA será: [6]");
+        
+        CoberturaVerticesAprox algoritmo2 = new CoberturaVerticesAprox(grafo2);
+        List<Vertice> solucion2 = algoritmo2.ejecutar();
+        printSolucion(solucion2);
+        
+        System.out.println("Comprobación de que el tamaño de la solución está dentro del error: ");
+        testSolucionSize(solucion2.size(),1);
+        
+        System.out.println("Comprobación de la validez de la solución: ");
+        testSolucion(solucion2,grafo2);
+        
+        System.out.println("---------------------------------------------");
+        System.out.println("-3er CASO-");
+        System.out.println("---------------------------------------------");
+        
+        Grafo grafo3 = new Grafo();
+        
+        grafo3.insertaVertice(vertice);
+        
+        grafo3.insertaArista(new Arista(vertice,vertice)); 
+        
+        System.out.println("\nMatriz Adyacente del grafo\n");
+        printMatriz(grafo3,grafo3.getMatrizAdyacente());
+        
+        System.out.println("Conjunto de aristas del grafo");
+        printConjuntoAristas(grafo3.getConjuntoAristas());
+        
+        System.out.println("\nEl conjunto de vértices de la solución ÓPTIMA será: []");
+        
+        CoberturaVerticesAprox algoritmo3 = new CoberturaVerticesAprox(grafo3);
+        List<Vertice> solucion3 = algoritmo3.ejecutar();
+        printSolucion(solucion3);
+        
+        System.out.println("Comprobación de que el tamaño de la solución está dentro del error: ");
+        testSolucionSize(solucion3.size(),);
+        
+        System.out.println("Comprobación de la validez de la solución: ");
+        testSolucion(solucion3,grafo3);
     }
     
     public static void printMatriz(Grafo grafo, float[][] matrizAdyacente){
@@ -78,49 +151,62 @@ public class Main {
             }
             System.out.println("");
         }
+        System.out.println("");
     }
     
-    /*public static void printConjuntoAristas (List<Arista> conjuntoAristas){
+    public static void printConjuntoAristas (List<Arista> conjuntoAristas){
+        System.out.print("\n[ ");
         for (int i = 0; i < conjuntoAristas.size(); i++) {
-            System.out.println(conjuntoAristas.get(i).getNodoA() + "," + conjuntoAristas.get(i).getNodoB() + " con peso " + conjuntoAristas.get(i).getPeso());
-        }
-    }*/
-
-    private static void printSolucion(List<Vertice> solucion) {
-        System.out.print("El conjunto de aristas solución será: ");
-        Iterator<Vertice> iter = solucion.iterator();
-        System.out.print("[");
-        while(iter.hasNext()){
-            Vertice next = iter.next();
-            System.out.print(next.getId() + " ");
+            System.out.print("(" + conjuntoAristas.get(i).getVerticeA().getId() + "," + conjuntoAristas.get(i).getVerticeB().getId() + ") ");
         }
         System.out.println("]");
     }
 
-    /*private static void comprobacionConexo(Grafo grafo) {
-        if(grafo.esConexo()) System.out.print("Es conexo.");
-        else System.out.print("No es conexo.");
-        System.out.println("");
+    private static void printSolucion(List<Vertice> solucion) {
+        System.out.print("\nEl conjunto de vértices solución usando un ALGORTIMO DE APROXIMACIÓN será: ");
+        Iterator<Vertice> iter = solucion.iterator();
+        String aristas = "[";
+        while(iter.hasNext()){
+            Vertice next = iter.next();
+            aristas += next.getId() + " ";
+        }
+        aristas = aristas.substring(0, aristas.length()-1);
+        aristas += "]";
+        System.out.println(aristas + "\n");
     }
 
-    private static Grafo creacionGrafoSolucion(List<Arista> solucion) {
-        Grafo grafoSolucion = new Grafo(solucion.size() + 1); 
-        Iterator<Arista> iter = solucion.iterator();
-        while(iter.hasNext()){
-            Arista next = iter.next();
-            grafoSolucion.insertaArista(next);
+    private static void testSolucionSize(int size, int sizeOptima) {
+        if(size <= 2*sizeOptima){
+            System.out.println("El tamaño de la solución es CORRECTO, puesto que a lo sumo el doble del de la solución óptima.\n");
+        } else {
+            System.out.println("El tamaño de la solución es INCORRECTO, puesto que mayor al doble del de la solución óptima.\n");
         }
-        return grafoSolucion;
     }
 
-    private static float comprobacionPesos(List<Arista> solucion) {
-        Iterator<Arista> iter = solucion.iterator();
-        float pesos = 0;
+    private static void testSolucion(List<Vertice> solucion, Grafo grafo) {
+        float[][] matriz = grafo.getMatrizAdyacente();
+        int[] test = new int[matriz.length];
+        
+        Iterator<Vertice> iter = solucion.iterator();
         while(iter.hasNext()){
-            pesos += iter.next().getPeso();
+            int next = iter.next().getId()-1;
+            for (int i = 0; i < matriz.length; i++) {
+                if(matriz[next][i] == 1){
+                    test[i] = 1;
+                } 
+            }
         }
-        return pesos;
-    }*/
+        int count = 0;
+        for (int i = 0; i < test.length; i++) {
+            if(test[i] == 1) count++;
+        }
+        if(count == test.length){
+            System.out.println("LA SOLUCIÓN ES CORRECTA :) ");
+        } else {
+            System.out.println("LA SOLUCIÓN ES INCORRECTA :( ");
+        }
+        
+    }
        
 }
 
