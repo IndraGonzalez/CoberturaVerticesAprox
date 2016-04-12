@@ -19,7 +19,7 @@ public class Grafo {
             conjuntoAristas = new LinkedList<>();
             conjuntoVertices = new ArrayList(numeroVertices);
         } else {
-            throw new IllegalArgumentException("El número de vértices debe ser mayor que cero.");
+            throw new IllegalArgumentException("El número de vértices debe ser mayor que uno.");
         }
     }
     
@@ -42,14 +42,14 @@ public class Grafo {
             conjuntoAristas.add(arista);
         } else {
             System.out.println("ERROR : No se ha insertado la arista.");
-            System.out.println("Ya existe una arista entre los vértices " + arista.getVerticeA()
-                + " y " + arista.getVerticeB());
+            System.out.println("Ya existe una arista entre los vértices " + arista.getVerticeA().getId()
+                + " y " + arista.getVerticeB().getId());
         }
     }
     
     public void insertaVertice(Vertice vertice){
         if((vertice.getId() < 1) || (vertice.getId() > matrizAdyacente.length)){
-            throw new IllegalArgumentException("El número del vertice no pertece al rango del grafo.");
+            throw new IllegalArgumentException("Los vértices que intenta conectar no pertecen al grafo.");
         }
         for (Vertice conjuntoVertice : conjuntoVertices) {
             if (conjuntoVertice.getId() == vertice.getId()) {

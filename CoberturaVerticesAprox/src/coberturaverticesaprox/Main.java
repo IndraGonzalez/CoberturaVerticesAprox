@@ -53,23 +53,7 @@ public class Main {
         
         System.out.println("Comprobación de la validez de la solución: ");
         testSolucion(solucion,grafo1);
-        
-        /* Para probar los dos casos en que se lanzan excepciones, habría
-         * que comentar una de la secciones y dejar la otra sin comentar
-         * para que se pueda ejecutar y se puedan lanzar las dos exepciones
-         * sin problemas. 
-        */
-        
-        /*System.out.println("");
-        System.out.println("Ejecutar Kruskal con un grafo no conexo");
-        Grafo grafo8 = new Grafo(2);
-        Kruskal kruskal3 = new Kruskal(grafo8);
-        kruskal3.ejecutar();
-        
-        System.out.println("");
-        System.out.println("Grafo con número de nodos menor a 1");
-        Grafo grafo3 = new Grafo(0);*/
-        
+
         System.out.println("---------------------------------------------\n");
         
         System.out.println("---------------------------------------------");
@@ -115,15 +99,26 @@ public class Main {
         System.out.println("Comprobación de la validez de la solución: ");
         testSolucion(solucion2,grafo2);
         
+        System.out.println("---------------------------------------------\n");
+        
         System.out.println("---------------------------------------------");
         System.out.println("-3er CASO-");
         System.out.println("---------------------------------------------");
         
-        Grafo grafo3 = new Grafo();
+        Grafo grafo3 = new Grafo(6);
         
-        grafo3.insertaVertice(vertice);
+        grafo3.insertaVertice(vertice1);
+        grafo3.insertaVertice(vertice2);
+        grafo3.insertaVertice(vertice3);
+        grafo3.insertaVertice(vertice4);
+        grafo3.insertaVertice(vertice5);        
+        grafo3.insertaVertice(vertice6);      
         
-        grafo3.insertaArista(new Arista(vertice,vertice)); 
+        grafo3.insertaArista(new Arista(vertice1,vertice2));
+        grafo3.insertaArista(new Arista(vertice2,vertice3));
+        grafo3.insertaArista(new Arista(vertice3,vertice4));
+        grafo3.insertaArista(new Arista(vertice4,vertice5));
+        grafo3.insertaArista(new Arista(vertice5,vertice6));
         
         System.out.println("\nMatriz Adyacente del grafo\n");
         printMatriz(grafo3,grafo3.getMatrizAdyacente());
@@ -131,17 +126,81 @@ public class Main {
         System.out.println("Conjunto de aristas del grafo");
         printConjuntoAristas(grafo3.getConjuntoAristas());
         
-        System.out.println("\nEl conjunto de vértices de la solución ÓPTIMA será: []");
+        System.out.println("\nEl conjunto de vértices de la solución ÓPTIMA será: [2 4 6]");
         
         CoberturaVerticesAprox algoritmo3 = new CoberturaVerticesAprox(grafo3);
         List<Vertice> solucion3 = algoritmo3.ejecutar();
         printSolucion(solucion3);
         
         System.out.println("Comprobación de que el tamaño de la solución está dentro del error: ");
-        testSolucionSize(solucion3.size(),);
+        testSolucionSize(solucion3.size(),3);
         
         System.out.println("Comprobación de la validez de la solución: ");
         testSolucion(solucion3,grafo3);
+        
+        System.out.println("---------------------------------------------\n");
+        
+        /* Para probar los casos en que se lanzan excepciones, habría
+         * que descomentar una de la secciones y dejar las otras comentadas
+         * para que se pueda ejecutar y se puedan lanzar las exepciones
+         * sin problemas.
+        */
+       
+        /*
+        System.out.println("---------------------------------------------");
+        System.out.println("-Excepción 1-");
+        System.out.println("---------------------------------------------");
+        
+        System.out.println("");
+        System.out.println("Grafo no conexo");
+        Grafo grafo5 = new Grafo(2);
+        CoberturaVerticesAprox noConexo = new CoberturaVerticesAprox(grafo5);
+        noConexo.ejecutar();
+      
+        System.out.println("---------------------------------------------");
+        System.out.println("-Excepción 2-");
+        System.out.println("---------------------------------------------");
+        
+        System.out.println("");
+        System.out.println("Grafo con número de nodos menor a 1");
+        Grafo grafo6 = new Grafo(0);
+        
+        System.out.println("---------------------------------------------");
+        System.out.println("-Excepción 3-");
+        System.out.println("---------------------------------------------");
+        
+        System.out.println("");
+        System.out.println("Añadir un vértice fuera del rango del grafo");
+        grafo1.insertaVertice(new Vertice(80));
+        
+        System.out.println("---------------------------------------------");
+        System.out.println("-Excepción 4-");
+        System.out.println("---------------------------------------------");
+        
+        System.out.println("");
+        System.out.println("Añadir un vértice dos veces");
+        grafo1.insertaVertice(vertice1);
+        
+        */
+       
+        System.out.println("---------------------------------------------");
+        System.out.println("-Errores-");
+        System.out.println("---------------------------------------------");
+        
+        
+        System.out.println("\nConectar un vértice a si mismo:");
+        grafo1.insertaArista(new Arista(vertice1,vertice1));
+        
+        System.out.println("\nConectar un vértice que no pertenece al grafo:");
+        Grafo grafo10 = new Grafo(10);
+        grafo10.insertaVertice(vertice1);
+        grafo1.insertaArista(new Arista(vertice1,new Vertice(10)));
+        
+        System.out.println("\nInsertar aristas repetidas:");
+        grafo1.insertaArista(new Arista(vertice1,vertice2));
+        
+        
+        
     }
     
     public static void printMatriz(Grafo grafo, float[][] matrizAdyacente){
