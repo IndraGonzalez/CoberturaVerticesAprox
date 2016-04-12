@@ -19,9 +19,9 @@ public class CoberturaVerticesAprox {
                 + "realizar el algoritmo de Cobertura de Vértices.");
         } else {
             this.grafo = grafo;
-            this.vertices = new ArrayList<>();
-            this.aristasIncidentes = new HashSet<>();
-            this.aristas = new ArrayList<>();
+            this.vertices = new ArrayList<Vertice>();
+            this.aristasIncidentes = new HashSet<Arista>();
+            this.aristas = new ArrayList<Arista>();
             List<Arista> aristasGrafo = grafo.getConjuntoAristas();
             Iterator<Arista> iter = aristasGrafo.iterator();
             while(iter.hasNext()){
@@ -37,13 +37,6 @@ public class CoberturaVerticesAprox {
             Vertice v = aristaActual.getVerticeB();
             aristasIncidentes.clear();
             obtenerIncidentes(u,v);
-            /*System.out.println("Tamaño de aristas incidentes " + aristasIncidentes.size());
-            System.out.println("Aristas incidentes:");
-            Iterator<Arista> iter = aristasIncidentes.iterator();
-            while(iter.hasNext()){
-                Arista next = iter.next();
-                System.out.println(next.getVerticeA().getId() + " , " + next.getVerticeB().getId());
-            }*/
             vertices.add(u);
             vertices.add(v);
             eliminarAristasInicidentes();
@@ -53,12 +46,11 @@ public class CoberturaVerticesAprox {
 
     private Arista seleccionarArista() {
         int posicion = (int) Math.floor(Math.random()*(aristas.size()));
-        //System.out.println("Posicion " + posicion);
         return aristas.get(posicion);
     }
     
     private void obtenerIncidentes(Vertice u, Vertice v) {
-        Set<Arista> incidentes = new HashSet<>();
+        Set<Arista> incidentes = new HashSet<Arista>();
         for (Arista arista : aristas) {
             if((arista.getVerticeA().getId() == u.getId()) || (arista.getVerticeA().getId() == v.getId()) ||
               (arista.getVerticeB().getId() == u.getId()) || (arista.getVerticeB().getId() == v.getId())){              

@@ -16,7 +16,7 @@ public class Grafo {
     public Grafo(int numeroVertices) {
         if(numeroVertices > 1) {
             matrizAdyacente = new float[numeroVertices][numeroVertices];
-            conjuntoAristas = new LinkedList<>();
+            conjuntoAristas = new LinkedList<Arista>();
             conjuntoVertices = new ArrayList(numeroVertices);
         } else {
             throw new IllegalArgumentException("El número de vértices debe ser mayor que uno.");
@@ -93,8 +93,8 @@ public class Grafo {
     }
     
     public boolean esConexo(){
-        Set<Integer> nodosVisitados = new TreeSet<>();
-        Set<Integer> nodosAVisitar = new TreeSet<>();
+        Set<Integer> nodosVisitados = new TreeSet<Integer>();
+        Set<Integer> nodosAVisitar = new TreeSet<Integer>();
         int count = 0;
         for (int i = 0; i < matrizAdyacente.length; i++) {
             for(int j = 0; j < matrizAdyacente[0].length; j++){

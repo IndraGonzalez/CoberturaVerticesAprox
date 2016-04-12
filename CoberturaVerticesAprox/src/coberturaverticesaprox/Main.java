@@ -140,6 +140,26 @@ public class Main {
         
         System.out.println("---------------------------------------------\n");
         
+        System.out.println("---------------------------------------------");
+        System.out.println("-Errores-");
+        System.out.println("---------------------------------------------");
+        
+        
+        System.out.println("\nConectar un vértice a si mismo:");
+        grafo1.insertaArista(new Arista(vertice1,vertice1));
+        
+        System.out.println("\nConectar un vértice que no pertenece al grafo:");
+        Grafo grafo10 = new Grafo(10);
+        grafo10.insertaVertice(vertice1);
+        grafo1.insertaArista(new Arista(vertice1,new Vertice(10)));
+        
+        System.out.println("\nInsertar aristas repetidas:");
+        grafo1.insertaArista(new Arista(vertice1,vertice2));
+        
+        System.out.println("\n############  Fin de pruebas  ############");
+        System.out.println("");
+        
+        
         /* Para probar los casos en que se lanzan excepciones, habría
          * que descomentar una de la secciones y dejar las otras comentadas
          * para que se pueda ejecutar y se puedan lanzar las exepciones
@@ -182,24 +202,6 @@ public class Main {
         grafo1.insertaVertice(vertice1);
         
         */
-       
-        System.out.println("---------------------------------------------");
-        System.out.println("-Errores-");
-        System.out.println("---------------------------------------------");
-        
-        
-        System.out.println("\nConectar un vértice a si mismo:");
-        grafo1.insertaArista(new Arista(vertice1,vertice1));
-        
-        System.out.println("\nConectar un vértice que no pertenece al grafo:");
-        Grafo grafo10 = new Grafo(10);
-        grafo10.insertaVertice(vertice1);
-        grafo1.insertaArista(new Arista(vertice1,new Vertice(10)));
-        
-        System.out.println("\nInsertar aristas repetidas:");
-        grafo1.insertaArista(new Arista(vertice1,vertice2));
-        
-        
         
     }
     
